@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.6.1",
+    "koa-router": "^7.4.0",
     "realm": "^2.18.0"
   },
   "devDependencies": {
