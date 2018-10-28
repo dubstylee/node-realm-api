@@ -13,7 +13,8 @@
   "author": "Brian Williams",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.6.1"
+    "koa": "^2.6.1",
+    "realm": "^2.18.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
