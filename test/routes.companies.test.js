@@ -6,48 +6,50 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 const server = require('../src/server/index');
+const realm = require('../src/server/realm/index')[process.env.NODE_ENV]();
 
 describe('routes : companies', () => {
 
-//  beforeEach(async () => {
-//    const realm = await Realm.open({ 
-//      path: 'test.realm',
-//      schema: Schema, 
-//      inMemory: true });
-
-    // add 1 test company
-//    realm.write(() => {
-//      const company = realm.create('Company', { companyName: 'test company' });
-//    });
-//  });
+  beforeEach(() => {
+    // clear companies table before running tests
+    realm.write(() => {
+      realm.delete(realm.objects('Company'));
+    });
+  });
 
 //  afterEach(() => {
 //    return knex.migrate.rollback();
 //  });
 
   describe('GET /api/v1/companies', () => {
-    it('should return all companies', (done) => {
+    it('should return an empty list', (done) => {
       chai.request(server)
       .get('/api/v1/companies')
       .end((err, res) => {
-        // there should be no errors
         should.not.exist(err);
-        // there should be a 200 status code
         res.status.should.equal(200);
-        // the response should be JSON
         res.type.should.equal('application/json');
-        // the JSON response body should have a
-        // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
-        // the JSON response body should have a
-        // key-value pair of {"data": [3 objects]}
-        console.log(res.body.data);
-        Object.keys(res.body.data).length.should.eql(1);
-        // the first object in the data array should
-        // have the right keys
-        res.body.data[0].should.include.keys(
-          'id', 'companyName'
-        );
+        Object.keys(res.body.data).length.should.eql(0);
+        done();
+      });
+    });
+    it('should return 3 newly added companies', (done) => {
+      realm.write(() => {
+        realm.create('Company', { id: '1', companyName: 'test company 1' });
+        realm.create('Company', { id: '2', companyName: 'test company 2' });
+        realm.create('Company', { id: '3', companyName: 'test company 3' });
+      });
+
+      chai.request(server)
+      .get('/api/v1/companies')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.type.should.equal('application/json');
+        res.body.status.should.eql('success');
+        Object.keys(res.body.data).length.should.eql(3);
+        res.body.data[0].should.include.keys('id', 'companyName', 'notes', 'notesSalt');
         done();
       });
     });
