@@ -5,7 +5,7 @@ const indexRoutes = require('./routes/index');
 const companiesRoutes = require('./routes/companies');
 
 const app = new Koa();
-const PORT = process.env.PORT || 1337;
+const PORT = process.env.PORT || 1338;
 
 app.use(bodyParser());
 app.use(indexRoutes.routes());

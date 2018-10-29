@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "node ./src/server/index.js",
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "author": "Brian Williams",
   "license": "ISC",

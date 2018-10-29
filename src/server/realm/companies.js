@@ -1,4 +1,5 @@
-const realm = require('./index');
+const environment = process.env.NODE_ENV || 'development';
+const realm = require('./index')[environment]();
 
 function getAllCompanies() {
   return realm.objects('Company').sorted('companyName', true);
