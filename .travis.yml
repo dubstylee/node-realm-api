@@ -13,4 +13,4 @@ env:
 script:
   - npm run test
 
-after_script: NODE_ENV=test nyc --reporter=lcov --reporter=text-lcov npm test
+after_script: NODE_ENV=test nyc npm test && nyc --reporter=lcov --reporter=text-lcov npm test
