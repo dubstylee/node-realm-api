@@ -23,7 +23,7 @@ router.get(BASE_URL, async (ctx) => {
 router.get(`${BASE_URL}/:id`, async (ctx) => {
   try {
     const company = await queries.getCompany(ctx.params.id);
-    if (Object.keys(company).length) {
+    if (company) {
       ctx.body = {
         status: 'success',
         data: company

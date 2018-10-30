@@ -6,7 +6,7 @@ function getAllCompanies() {
 }
 
 function getCompany(id) {
-  return realm.objects('Company').filtered(`id = '${id}'`);
+  return realm.objectForPrimaryKey('Company', id);
 }
 
 function addCompany(company) {
