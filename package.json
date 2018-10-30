@@ -12,7 +12,8 @@
   },
   "scripts": {
     "start": "node ./src/server/index.js",
-    "test": "nyc mocha --exit"
+    "test": "nyc mocha --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Brian Williams",
   "license": "ISC",
