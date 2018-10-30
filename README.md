@@ -4,4 +4,3 @@
 ![language](https://img.shields.io/badge/language-javascript-yellow.svg)
 
 # RESTful API for Realm database
-
