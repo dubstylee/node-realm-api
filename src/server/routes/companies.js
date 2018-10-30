@@ -12,7 +12,11 @@ router.get(BASE_URL, async (ctx) => {
       data: companies
     };
   } catch (err) {
-    console.log(err)
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.'
+    };
   }
 });
 
@@ -33,13 +37,14 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
     }
   } catch (err) {
     console.log(err);
+    throw err;
   }
 });
 
 router.post(`${BASE_URL}`, async (ctx) => {
   try {
     const company = await queries.addCompany(ctx.request.body);
-    if (company !== null) {
+    if (company) {
       ctx.status = 201;
       ctx.body = {
         status: 'success',

@@ -92,6 +92,22 @@ describe('routes : companies', () => {
 
 
   describe('POST /api/v1/companies', () => {
+    it('should fail when no company is created', (done) => {
+      chai.request(server)
+      .post('/api/v1/companies')
+      .send({})
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(400);
+        res.type.should.equal('application/json');
+        res.body.status.should.eql('error');
+//        res.body.message.should.eql('Something went wrong.');
+//        res.body.data.should.include.keys(
+//          'id', 'companyName', 'notes', 'notesSalt'
+//        );
+        done();
+      });
+    });
     it('should return the company that was added', (done) => {
       chai.request(server)
       .post('/api/v1/companies')
@@ -138,17 +154,10 @@ describe('routes : companies', () => {
         companyName: 'new name'
       })
       .end((err, res) => {
-        // there should be no errors
         should.not.exist(err);
-        // there should be a 200 status code
         res.status.should.equal(200);
-        // the response should be JSON
         res.type.should.equal('application/json');
-        // the JSON response body should have a
-        // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
-        // the JSON response body should have a
-        // key-value pair of {"data": 1 movie object}
         res.body.data.should.include.keys(
           'id', 'companyName', 'notes', 'notesSalt'
         );
@@ -182,24 +191,16 @@ describe('routes : companies', () => {
       chai.request(server)
       .delete(`/api/v1/companies/${companyObject.id}`)
       .end((err, res) => {
-        // there should be no errors
         should.not.exist(err);
-        // there should be a 200 status code
         res.status.should.equal(200);
-        // the response should be JSON
         res.type.should.equal('application/json');
-        // the JSON response body should have a
-        // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
-        // the JSON response body should have a
-        // key-value pair of {"data": 1 movie object}
         res.body.data[0].should.eql(companyId);
-        // ensure the movie was in fact deleted
         companies.length.should.eql(lengthBeforeDelete - 1);
         done();
       });
     });
-    it('should throw an error if the movie does not exist', (done) => {
+    it('should throw an error if the company does not exist', (done) => {
       chai.request(server)
       .delete('/api/v1/companies/9999999')
       .end((err, res) => {
