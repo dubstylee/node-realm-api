@@ -5,44 +5,52 @@ function getAllCompanies() {
   return realm.objects('Company').sorted('companyName', true);
 }
 
-//function getSingleMovie(id) {
-//  return knex('movies')
-//  .select('*')
-//  .where({ id: parseInt(id) });
-//}
+function getCompany(id) {
+  return realm.objects('Company').filtered(`id = '${id}'`);
+}
 
-// function addCompany(company) {
-//   try {
-//   let companyName = company['companyName'];
-//
-//   realm.write(() => {
-//     realm.create('Company', { companyName: companyName });
-//   });
-//   } catch (e) {
-//     console.log("error");
-//   }
-//
-//   return realm.objects('Company').sorted('companyName', true);
-// }
+function addCompany(company) {
+  let newCompany;
 
-//function updateMovie(id, movie) {
-//  return knex('movies')
-//  .update(movie)
-//  .where({ id: parseInt(id) })
-//  .returning('*');
-//}
+  realm.write(() => {
+    newCompany = realm.create('Company', { companyName: company.companyName });
+  });
 
-//function deleteMovie(id) {
-//  return knex('movies')
-//  .del()
-//  .where({ id: parseInt(id) })
-//  .returning('*');
-//}
+  return newCompany;
+}
+
+function updateCompany(id, company) {
+  if (!realm.objectForPrimaryKey('Company', id))
+    return null;
+
+  let updatedCompany;
+
+  realm.write(() => {
+    updatedCompany = realm.create('Company',
+        { id: id,
+          companyName: company.companyName,
+          notes: company.notes,
+          notesSalt: company.notesSalt }, true);
+  });
+
+  return updatedCompany;
+}
+
+function deleteCompany(id) {
+  if (!realm.objectForPrimaryKey('Company', id))
+    return null;
+
+  realm.write(() => {
+    realm.delete(realm.objectForPrimaryKey('Company', id));
+  });
+
+  return id;
+}
 
 module.exports = {
-  getAllCompanies
-//  getSingleMovie,
-//  addMovie,
-//  updateMovie,
-//  deleteMovie
+  getAllCompanies,
+  getCompany,
+  addCompany,
+  updateCompany,
+  deleteCompany
 };
