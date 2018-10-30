@@ -19,6 +19,7 @@ describe('routes : companies', () => {
 
   describe('GET /api/v1/companies', () => {
     const companies = realm.objects('Company');
+
     it('initial count should be 0', (done) => {
       companies.length.should.eql(0);
       done();
@@ -92,6 +93,8 @@ describe('routes : companies', () => {
   });
 
   describe('POST /api/v1/companies', () => {
+    const companies = realm.objects('Company');
+
     it('should return an error when no company is created', (done) => {
       chai.request(server)
       .post('/api/v1/companies')
@@ -120,6 +123,18 @@ describe('routes : companies', () => {
           'id', 'companyName', 'notes', 'notesSalt'
         );
         newCompany.companyName.should.eql(company.companyName);
+        done();
+      });
+    });
+    it('should return an error when adding duplicate company', (done) => {
+      chai.request(server)
+      .post('/api/v1/companies')
+      .send({ id: '1', companyName: 'test company 1' })
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.type.should.equal('application/json');
+        res.body.status.should.eql('error');
+//        should.exist(res.body.message);
         done();
       });
     });

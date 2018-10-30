@@ -5,23 +5,23 @@ const router = new Router();
 const BASE_URL = `/api/v1/companies`;
 
 router.get(BASE_URL, async (ctx) => {
-  try {
+//  try {
     const companies = await queries.getAllCompanies();
     ctx.body = {
       status: 'success',
       data: companies
     };
-  } catch (err) {
-    ctx.status = 400;
-    ctx.body = {
-      status: 'error',
-      message: err.message || 'Sorry, an error has occurred.'
-    };
-  }
+//  } catch (err) {
+//    ctx.status = 400;
+//    ctx.body = {
+//      status: 'error',
+//      message: err.message || 'Sorry, an error has occurred.'
+//    };
+//  }
 });
 
 router.get(`${BASE_URL}/:id`, async (ctx) => {
-  try {
+//  try {
     const company = await queries.getCompany(ctx.params.id);
     if (company) {
       ctx.body = {
@@ -35,10 +35,10 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
         message: 'That company does not exist.'
       };
     }
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
+//  } catch (err) {
+//    console.log(err);
+//    throw err;
+//  }
 });
 
 router.post(`${BASE_URL}`, async (ctx) => {
@@ -67,7 +67,7 @@ router.post(`${BASE_URL}`, async (ctx) => {
 });
 
 router.put(`${BASE_URL}/:id`, async (ctx) => {
-  try {
+//  try {
     const company = await queries.updateCompany(ctx.params.id, ctx.request.body);
     if (company !== null) {
       ctx.status = 200;
@@ -82,17 +82,17 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
         message: 'That company does not exist.'
       };
     }
-  } catch (err) {
-    ctx.status = 400;
-    ctx.body = {
-      status: 'error',
-      message: err.message || 'Sorry, an error has occurred.'
-    };
-  }
+//  } catch (err) {
+//    ctx.status = 400;
+//    ctx.body = {
+//      status: 'error',
+//      message: err.message || 'Sorry, an error has occurred.'
+//    };
+//  }
 });
 
 router.delete(`${BASE_URL}/:id`, async (ctx) => {
-  try {
+//  try {
     const company = await queries.deleteCompany(ctx.params.id);
     if (company !== null) {
       ctx.status = 200;
@@ -107,13 +107,13 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
         message: 'That company does not exist.'
       };
     }
-  } catch (err) {
-    ctx.status = 400;
-    ctx.body = {
-      status: 'error',
-      message: err.message || 'Sorry, an error has occurred.'
-    };
-  }
+//  } catch (err) {
+//    ctx.status = 400;
+//    ctx.body = {
+//      status: 'error',
+//      message: err.message || 'Sorry, an error has occurred.'
+//    };
+//  }
 });
 
 module.exports = router;

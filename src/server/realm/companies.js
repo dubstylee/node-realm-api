@@ -12,10 +12,13 @@ function getCompany(id) {
 function addCompany(company) {
   let newCompany;
 
-  realm.write(() => {
-    newCompany = realm.create('Company', { companyName: company.companyName });
-  });
-
+  try {
+    realm.write(() => {
+      newCompany = realm.create('Company', company);
+    });
+  } catch (err) {
+    console.log(err);
+  }
   return newCompany;
 }
 
