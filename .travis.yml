@@ -1,0 +1,14 @@
+language:
+  - node_js
+
+node_js:
+  - '9'
+  - '8'
+  - '7'
+
+env:
+  global:
+    - NODE_ENV=test
+
+script:
+  - npm run test
