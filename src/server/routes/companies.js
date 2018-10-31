@@ -36,15 +36,19 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
       };
     }
 //  } catch (err) {
-//    console.log(err);
-//    throw err;
+//    ctx.status = 400;
+//    ctx.body = {
+//      status: 'error',
+//      message: err.message || 'Sorry, an error has occurred.'
+//    };
 //  }
 });
 
 router.post(`${BASE_URL}`, async (ctx) => {
-  try {
+//  try {
     const company = await queries.addCompany(ctx.request.body);
-    if (company) {
+
+    if (company.id !== 'error') {
       ctx.status = 201;
       ctx.body = {
         status: 'success',
@@ -57,13 +61,13 @@ router.post(`${BASE_URL}`, async (ctx) => {
         message: 'Something went wrong.'
       };
     }
-  } catch (err) {
-    ctx.status = 400;
-    ctx.body = {
-      status: 'error',
-      message: err.message || 'Sorry, an error has occurred.'
-    };
-  }
+//  } catch (err) {
+//    ctx.status = 400;
+//    ctx.body = {
+//      status: 'error',
+//      message: err.message || 'Sorry, an error has occurred.'
+//    };
+//  }
 });
 
 router.put(`${BASE_URL}/:id`, async (ctx) => {
@@ -94,6 +98,7 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
 router.delete(`${BASE_URL}/:id`, async (ctx) => {
 //  try {
     const company = await queries.deleteCompany(ctx.params.id);
+
     if (company !== null) {
       ctx.status = 200;
       ctx.body = {

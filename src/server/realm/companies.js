@@ -17,8 +17,9 @@ function addCompany(company) {
       newCompany = realm.create('Company', company);
     });
   } catch (err) {
-    console.log(err);
+    newCompany = { id: 'error', companyName: 'error', notes: err.message };
   }
+
   return newCompany;
 }
 
