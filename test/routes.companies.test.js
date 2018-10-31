@@ -173,10 +173,8 @@ describe("routes : companies", () => {
         updatedCompany.should.include.keys(
           "id", "companyName", "notes", "notesSalt"
         );
-        // company and updatedCompany are both the same object
-        company.companyName.should.not.eql(oldName);
-        updatedCompany.companyName.should.not.eql(oldName);
-        company.companyName.should.eql(updatedCompany.companyName);
+        company.companyName.should.equal(oldName);
+        updatedCompany.companyName.should.equal("new name");
         done();
       });
     });
