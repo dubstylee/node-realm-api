@@ -1,5 +1,5 @@
-const Realm = require('realm');
-const uuid = require('uuid/v4');
+const Realm = require("realm");
+const uuid = require("uuid/v4");
 
 // Realm supports the following basic types: bool, int, float, double, string, data, and date.
 //

@@ -1,12 +1,12 @@
-const environment = process.env.NODE_ENV || 'development';
-const realm = require('./index')[environment]();
+const environment = process.env.NODE_ENV || "development";
+const realm = require("./index")[environment];
 
 function getAllCompanies() {
-  return realm.objects('Company').sorted('companyName', true);
+  return realm.objects("Company").sorted("companyName", true);
 }
 
 function getCompany(id) {
-  return realm.objectForPrimaryKey('Company', id);
+  return realm.objectForPrimaryKey("Company", id);
 }
 
 function addCompany(company) {
@@ -14,38 +14,38 @@ function addCompany(company) {
 
   try {
     realm.write(() => {
-      newCompany = realm.create('Company', company);
+      newCompany = realm.create("Company", company);
     });
   } catch (err) {
-    newCompany = { id: 'error', companyName: 'error', notes: err.message };
+    newCompany = { id: "error", companyName: "error", notes: err.message };
   }
 
   return newCompany;
 }
 
 function updateCompany(id, company) {
-  if (!realm.objectForPrimaryKey('Company', id))
+  if (!realm.objectForPrimaryKey("Company", id))
     return null;
 
   let updatedCompany;
 
   realm.write(() => {
-    updatedCompany = realm.create('Company',
-        { id: id,
+    updatedCompany = realm.create("Company",
+        { id:          id,
           companyName: company.companyName,
-          notes: company.notes,
-          notesSalt: company.notesSalt }, true);
+          notes:       company.notes,
+          notesSalt:   company.notesSalt }, true);
   });
 
   return updatedCompany;
 }
 
 function deleteCompany(id) {
-  if (!realm.objectForPrimaryKey('Company', id))
+  if (!realm.objectForPrimaryKey("Company", id))
     return null;
 
   realm.write(() => {
-    realm.delete(realm.objectForPrimaryKey('Company', id));
+    realm.delete(realm.objectForPrimaryKey("Company", id));
   });
 
   return id;

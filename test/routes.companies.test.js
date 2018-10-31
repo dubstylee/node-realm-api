@@ -6,7 +6,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 const server = require('../src/server/index');
-const realm = require('../src/server/realm/index')[process.env.NODE_ENV]();
+const realm = require('../src/server/realm/index')[process.env.NODE_ENV];
 
 describe('routes : companies', () => {
 
