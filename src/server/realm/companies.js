@@ -31,7 +31,7 @@ function updateCompany(id, company) {
 
   realm.write(() => {
     updatedCompany = realm.create("Company",
-        { id:          id,
+        { id:          company.id,
           companyName: company.companyName,
           notes:       company.notes,
           notesSalt:   company.notesSalt }, true);
