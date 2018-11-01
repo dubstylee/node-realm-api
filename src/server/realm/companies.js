@@ -24,8 +24,9 @@ function addCompany(company) {
 }
 
 function updateCompany(id, company) {
-  if (!realm.objectForPrimaryKey("Company", id))
+  if (!realm.objectForPrimaryKey("Company", id)) {
     return null;
+  }
 
   let updatedCompany;
 
@@ -41,8 +42,9 @@ function updateCompany(id, company) {
 }
 
 function deleteCompany(id) {
-  if (!realm.objectForPrimaryKey("Company", id))
+  if (!realm.objectForPrimaryKey("Company", id)) {
     return null;
+  }
 
   realm.write(() => {
     realm.delete(realm.objectForPrimaryKey("Company", id));

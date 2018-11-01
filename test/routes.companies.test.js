@@ -109,7 +109,7 @@ describe("routes : companies", () => {
       });
     });
     it("should return the company that was added", (done) => {
-      const company = { companyName: "Test Company" }
+      const company = { companyName: "Test Company" };
       chai.request(server)
       .post("/api/v1/companies")
       .send(company)

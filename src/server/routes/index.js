@@ -6,6 +6,6 @@ router.get("/", async (ctx) => {
     status: "success",
     message: "hello, world!"
   };
-})
+});
 
 module.exports = router;
