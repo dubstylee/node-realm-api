@@ -2,7 +2,8 @@ process.env.NODE_ENV = "test";
 
 const chai = require("chai");
 const should = chai.should();
-const server = require("../src/server/index");
+
+const server = require("../server/index");
 
 describe("Sample Test", () => {
   it("should pass (1 + 2 = 3)", (done) => {
