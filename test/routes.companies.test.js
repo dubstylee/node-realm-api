@@ -157,13 +157,11 @@ describe("routes : companies", () => {
   describe("PUT /api/v1/companies", () => {
     it("should return the company that was updated", (done) => {
       const companies = realm.objects("Company");
-      const company = companies[0];
+      let company = companies[0];
       const oldName = company.companyName;
       chai.request(server)
       .put(`/api/v1/companies/${company.id}`)
-      .send({
-        companyName: "new name"
-      })
+      .send({ id: company.id, companyName: "new name", notes: company.notes, notesSalt: company.notesSalt })
       .end((err, res) => {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -173,8 +171,8 @@ describe("routes : companies", () => {
         updatedCompany.should.include.keys(
           "id", "companyName", "notes", "notesSalt"
         );
-        company.companyName.should.equal(oldName);
         updatedCompany.companyName.should.equal("new name");
+        company.companyName.should.equal(updatedCompany.companyName);
         done();
       });
     });

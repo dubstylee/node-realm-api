@@ -1,3 +1,4 @@
+const uuid = require("uuid/v4");
 const realm = require("./index")[process.env.NODE_ENV];
 
 function getAllCompanies() {
@@ -13,6 +14,10 @@ function addCompany(company) {
 
   try {
     realm.write(() => {
+      if (typeof company.id === "undefined") {
+        // generate new UUID if one is not provided
+        company.id = uuid();
+      }
       newCompany = realm.create("Company", company);
     });
   } catch (err) {

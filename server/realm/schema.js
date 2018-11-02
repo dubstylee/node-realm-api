@@ -1,5 +1,4 @@
 const Realm = require("realm");
-const uuid = require("uuid/v4");
 
 // Realm supports the following basic types: bool, int, float, double, string, data, and date.
 //
@@ -14,11 +13,11 @@ const CompanySchema = {
   name: "Company",
   primaryKey: "id",
   properties: {
-    id: { type: "string", default: uuid() }, // primary key uuid
+    id: { type: "string" },   // primary key uuid
     companyName: "string",
     // logoBase64: "string?", // store path to image file instead
-    notes: "string?", // encrypt this field
-    notesSalt: "string?" // used for encryption
+    notes: "string?",         // encrypt this field
+    notesSalt: "string?"      // used for encryption
     //contacts: "Contact[]",
     //addresses: "Address[]"
   }
