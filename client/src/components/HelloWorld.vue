@@ -11,10 +11,16 @@
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
     </ul>
-    <form action="/api/v1/companies" method="POST">
-      <input type="text" name="companyName" /><br />
-      <button type="submit">Submit</button>
+    <form id="inputForm">
+      <input type="text" name="companyName" id="companyName" /><br />
+      <button v-on:click="performPostRequest" type="submit">Submit</button>
     </form>
+    <div id="postResult"></div>
+    <ul v-if="companies">
+      <li v-for="company of companies" :key="company.id">
+        <div class="content"><p>{{company.companyName}}</p></div>
+      </li>
+    </ul>
     <h3>Essential Links</h3>
     <ul>
       <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
@@ -35,10 +41,54 @@
 </template>
 
 <script>
+const axios = require("axios");
+
+function loadCompanies() {
+  axios
+    .get("/api/v1/companies")
+    .then(response => {
+      this.companies = response.data.data
+    })
+    .catch(error => {
+
+    });
+}
+
+function performPostRequest(e) {
+  var resultElement = document.getElementById("postResult");
+  var name = document.getElementById("companyName").value; 
+  resultElement.innerHTML = "";
+  
+  axios.post("/api/v1/companies", {
+    companyName: name
+  })
+  .then(function (response) {
+    resultElement.innerHTML = response.data.status;
+  })
+  .catch(function (error) {
+    resultElement.innerHTML = error;
+  });
+  
+  this.loadCompanies();
+  e.preventDefault();
+}
+
 export default {
   name: 'HelloWorld',
+  data: function () {
+    return { 
+      companies: [] 
+    }
+  },
   props: {
     msg: String
+  },
+  methods: {
+    loadCompanies,
+    performPostRequest
+  },
+  beforeMount() {
+    this.loadCompanies()
   }
 }
 </script>

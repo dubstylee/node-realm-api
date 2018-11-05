@@ -2,7 +2,7 @@ const uuid = require("uuid/v4");
 const realm = require("./index")[process.env.NODE_ENV];
 
 function getAllCompanies() {
-  return realm.objects("Company").sorted("companyName", true);
+  return realm.objects("Company").sorted("companyName");
 }
 
 function getCompany(id) {
