@@ -12,13 +12,13 @@
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
     </ul>
     <form id="inputForm">
-      <input type="text" name="companyName" id="companyName" /><br />
+      <input type="text" name="companyName" id="companyName" />
       <button v-on:click="performPostRequest" type="submit">Submit</button>
     </form>
     <div id="postResult"></div>
     <ul v-if="companies">
       <li v-for="company of companies" :key="company.id">
-        <div class="content"><p>{{company.companyName}}</p></div>
+        <div class="content"><a :href="'/api/v1/companies/' + company.id"><p>{{company.companyName}}</p></a></div>
       </li>
     </ul>
     <h3>Essential Links</h3>
@@ -47,7 +47,7 @@ function loadCompanies() {
   axios
     .get("/api/v1/companies")
     .then(response => {
-      this.companies = response.data.data
+      this.companies = Object.values(response.data.data);
     })
     .catch(error => {
 
@@ -62,14 +62,20 @@ function performPostRequest(e) {
   axios.post("/api/v1/companies", {
     companyName: name
   })
-  .then(function (response) {
+  .then(response => {
+    resultElement.className = "show";
     resultElement.innerHTML = response.data.status;
+    var company = response.data.data;
+    var index = this.companies.findIndex(c => c.companyName > company.companyName);
+    if (index === -1) { index = this.companies.length; }
+    this.companies.splice(index, 0, company);
+
+    setTimeout(() => resultElement.className = "", 3000);
   })
   .catch(function (error) {
     resultElement.innerHTML = error;
   });
   
-  this.loadCompanies();
   e.preventDefault();
 }
 
@@ -77,7 +83,7 @@ export default {
   name: 'HelloWorld',
   data: function () {
     return { 
-      companies: [] 
+      companies: []
     }
   },
   props: {
@@ -87,7 +93,7 @@ export default {
     loadCompanies,
     performPostRequest
   },
-  beforeMount() {
+  created() {
     this.loadCompanies()
   }
 }
@@ -108,5 +114,48 @@ li {
 }
 a {
   color: #42b983;
+}
+
+#postResult {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+}
+
+#postResult.show {
+    visibility: visible;
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+       However, delay the fade out process for 2.5 seconds */
+   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+}
+
+@keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+}
+
+@-webkit-keyframes fadeout {
+    from { bottom: 30px; opacity: 1; }
+    to { bottom: 0; opacity: 0; }
+}
+
+@keyframes fadeout {
+    from { bottom: 30px; opacity: 1; }
+    to { bottom: 0; opacity: 0; }
 }
 </style>
