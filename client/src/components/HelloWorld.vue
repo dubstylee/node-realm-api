@@ -15,7 +15,7 @@
       <input type="text" name="companyName" id="companyName" />
       <button v-on:click="performPostRequest" type="submit">Submit</button>
     </form>
-    <div id="postResult"></div>
+    <div id="postResult">{{this.message}}</div>
     <ul v-if="companies">
       <li v-for="company of companies" :key="company.id">
         <div class="content"><a :href="'/api/v1/companies/' + company.id"><p>{{company.companyName}}</p></a></div>
@@ -50,30 +50,36 @@ function loadCompanies() {
       this.companies = Object.values(response.data.data);
     })
     .catch(error => {
-
+      this.message = error;
     });
 }
 
 function performPostRequest(e) {
   var resultElement = document.getElementById("postResult");
   var name = document.getElementById("companyName").value; 
-  resultElement.innerHTML = "";
   
   axios.post("/api/v1/companies", {
     companyName: name
   })
   .then(response => {
     resultElement.className = "show";
-    resultElement.innerHTML = response.data.status;
+    this.message = response.data.status;
     var company = response.data.data;
     var index = this.companies.findIndex(c => c.companyName > company.companyName);
-    if (index === -1) { index = this.companies.length; }
+
+    // if no index found, add at end of array
+    if (index === -1) {
+      index = this.companies.length;
+    }
     this.companies.splice(index, 0, company);
 
-    setTimeout(() => resultElement.className = "", 3000);
+    setTimeout(() => {
+      resultElement.className = "";
+      this.message = "";
+    }, 3000);
   })
-  .catch(function (error) {
-    resultElement.innerHTML = error;
+  .catch(error => {
+    this.message = error;
   });
   
   e.preventDefault();
@@ -83,7 +89,8 @@ export default {
   name: 'HelloWorld',
   data: function () {
     return { 
-      companies: []
+      companies: [],
+      message: ""
     }
   },
   props: {
