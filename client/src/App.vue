@@ -1,17 +1,23 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Dashboard title="Realm API" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Dashboard from "./components/Dashboard.vue"
+import HelloWorld from "./components/HelloWorld.vue"
 
 export default {
   name: 'app',
   components: {
+    Dashboard,
     HelloWorld
+  },
+  created: function() {
+    document.title = "Realm API"
   }
 }
 </script>
