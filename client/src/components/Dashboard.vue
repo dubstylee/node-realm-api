@@ -1,24 +1,33 @@
 <template>
   <div class="dashboard">
     <h1>{{ title }}</h1>
-    <ul>
-      <li v-for="menuItem in menuItems" :key="menuItem.name">
-        <a class="menuItem" :href="menuItem.link">{{ menuItem.name }}</a>
-      </li>
-    </ul>
+    <menu-item class="menuItem"
+               v-for="item in menuItems"
+               :key="item.name"
+               :title="item.title"
+               :link="item.link"
+               :image="item.image">
+    </menu-item>
   </div>
 </template>
 
 <script>
+const MenuItem = require("./MenuItem").default;
+
 function loadMenuItems() {
   this.menuItems = [
-    { name: "Companies", link: "" },
-    { name: "Accounts", link: "" },
-    { name: "Payments", link: "" }];
+    { title: "Companies", link: "", image: "logo.png" },
+    { title: "Accounts", link: "", image: "logo.png" },
+    { title: "Payments", link: "", image: "" },
+    { title: "Checkbook", link: "", image: "" },
+  ];
 }
 
 export default {
   name: 'Dashboard',
+  components: {
+    MenuItem
+  },
   data: function () {
     return { 
       menuItems: []
@@ -56,10 +65,10 @@ a {
   display: inline-block;
   background: black;
   padding: 10px;
-  color: white;
+  color: #42b983;
   height: 150px;
   width: 150px;
-  text-decoration: none;
+  margin: 10px;
 }
 
 </style>
