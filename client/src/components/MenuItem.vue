@@ -9,11 +9,11 @@
 
 export default {
   name: "MenuItem",
-  data: function () {
-    return { }
+  data() {
+    return { };
   },
   computed: {
-    imageUrl: function() {
+    imageUrl() {
       return this.image ? require("../assets/" + this.image) : "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
     }
   },
@@ -22,7 +22,7 @@ export default {
     title: String,
     link: String
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
