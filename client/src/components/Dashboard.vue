@@ -28,10 +28,10 @@ export default {
   components: {
     MenuItem
   },
-  data: function () {
+  data() {
     return { 
       menuItems: []
-    }
+    };
   },
   props: {
     title: String
@@ -40,7 +40,7 @@ export default {
     loadMenuItems
   },
   created() {
-    this.loadMenuItems()
+    this.loadMenuItems();
   }
 }
 </script>

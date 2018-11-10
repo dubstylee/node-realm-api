@@ -7,19 +7,19 @@
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard.vue"
-import HelloWorld from "./components/HelloWorld.vue"
+import Dashboard from "./components/Dashboard.vue";
+import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Dashboard,
     HelloWorld
   },
-  created: function() {
-    document.title = "Realm API"
+  created() {
+    document.title = "Realm API";
   }
-}
+};
 </script>
 
 <style>

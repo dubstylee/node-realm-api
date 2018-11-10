@@ -86,12 +86,12 @@ function performPostRequest(e) {
 }
 
 export default {
-  name: 'HelloWorld',
-  data: function () {
+  name: "HelloWorld",
+  data() {
     return { 
       companies: [],
       message: ""
-    }
+    };
   },
   props: {
     msg: String
@@ -101,7 +101,7 @@ export default {
     performPostRequest
   },
   created() {
-    this.loadCompanies()
+    this.loadCompanies();
   }
 }
 </script>
