@@ -7,6 +7,8 @@ const BASE_URL = "/api/v1/companies";
 router.get(BASE_URL, async (ctx) => {
 //  try {
     const companies = await queries.getAllCompanies();
+
+    ctx.status = 200;
     ctx.body = {
       status: "success",
       data: companies
@@ -15,7 +17,7 @@ router.get(BASE_URL, async (ctx) => {
 //    ctx.status = 400;
 //    ctx.body = {
 //      status: "error",
-//      message: err.message || "Sorry, an error has occurred."
+//      message: err.message
 //    };
 //  }
 });
@@ -23,7 +25,9 @@ router.get(BASE_URL, async (ctx) => {
 router.get(`${BASE_URL}/:id`, async (ctx) => {
 //  try {
     const company = await queries.getCompany(ctx.params.id);
+
     if (company) {
+      ctx.status = 200;
       ctx.body = {
         status: "success",
         data: company
@@ -45,34 +49,36 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
 });
 
 router.post(`${BASE_URL}`, async (ctx) => {
-//  try {
+  try {
     const company = await queries.addCompany(ctx.request.body);
 
-    if (company.id !== "error") {
+//    if (company) {
       ctx.status = 201;
       ctx.body = {
         status: "success",
         data: company
       };
-    } else {
-      ctx.status = 400;
-      ctx.body = {
-        status: "error",
-        message: "Something went wrong."
-      };
-    }
-//  } catch (err) {
-//    ctx.status = 400;
-//    ctx.body = {
-//      status: "error",
-//      message: err.message || "Sorry, an error has occurred."
-//    };
-//  }
+//    } else {
+//      ctx.status = 400;
+//      ctx.body = {
+//        status: "error",
+//        message: "Something went wrong."
+//      };
+//    }
+  } catch (err) {
+    ctx.status = 400;
+    ctx.body = {
+      status: "error",
+      message: err.message
+    };
+  }
 });
 
 router.put(`${BASE_URL}/:id`, async (ctx) => {
 //  try {
-    const company = await queries.updateCompany(ctx.params.id, ctx.request.body);
+    var obj = ctx.request.body;
+    obj.id = ctx.params.id;
+    const company = await queries.updateCompany(ctx.request.body);
     if (company !== null) {
       ctx.status = 200;
       ctx.body = {
@@ -99,7 +105,7 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
 //  try {
     const company = await queries.deleteCompany(ctx.params.id);
 
-    if (company !== null) {
+    if (company) {
       ctx.status = 200;
       ctx.body = {
         status: "success",

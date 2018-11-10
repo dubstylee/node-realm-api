@@ -79,7 +79,7 @@ describe("routes : companies", () => {
         done();
       });
     });
-    it("should return an error if the company does not exist", (done) => {
+    it("should return undefined if the company does not exist", (done) => {
       chai.request(server)
       .get("/api/v1/companies/999999")
       .end((err, res) => {
@@ -104,7 +104,6 @@ describe("routes : companies", () => {
         res.status.should.equal(400);
         res.type.should.equal("application/json");
         res.body.status.should.eql("error");
-//        res.body.message.should.eql("Something went wrong.");
         done();
       });
     });
@@ -134,7 +133,7 @@ describe("routes : companies", () => {
         res.status.should.equal(400);
         res.type.should.equal("application/json");
         res.body.status.should.eql("error");
-//        should.exist(res.body.message);
+        should.exist(res.body.message);
         done();
       });
     });
@@ -193,7 +192,7 @@ describe("routes : companies", () => {
   });
 
   describe("DELETE /api/v1/companies/:id", () => {
-    it("should return the id of the company that was deleted", (done) => {
+    it("should return true if the company was deleted", (done) => {
       const companies = realm.objects("Company");
       const companyObject = companies[0];
       const companyId = companyObject.id;
@@ -205,12 +204,12 @@ describe("routes : companies", () => {
         res.status.should.equal(200);
         res.type.should.equal("application/json");
         res.body.status.should.eql("success");
-        res.body.data[0].should.eql(companyId);
+        res.body.data.should.eql(true);
         companies.length.should.eql(lengthBeforeDelete - 1);
         done();
       });
     });
-    it("should return an error if the company does not exist", (done) => {
+    it("should return false if the company does not exist", (done) => {
       chai.request(server)
       .delete("/api/v1/companies/9999999")
       .end((err, res) => {
