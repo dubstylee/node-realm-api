@@ -14,7 +14,8 @@
     "start": "NODE_ENV=development node ./server/index.js",
     "test": "nyc mocha --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "dev": "concurrently \"npm run start\" \"npm run serve --prefix ./client\""
+    "dev": "concurrently \"npm run start\" \"npm run serve --prefix ./client\"",
+    "doc": "node ./node_modules/jsdoc/jsdoc.js -c ./jsdoc.json -t ./node_modules/tui-jsdoc-template ./server/realm"
   },
   "author": "Brian Williams",
   "license": "ISC",

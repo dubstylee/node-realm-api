@@ -67,7 +67,7 @@ function updateObject(type, obj) {
  * Delete a Realm object of the provided type with the provided primary key.
  * @param {string} type - The type of Realm object to delete.
  * @param {string} id - The primary key of the Realm object to be deleted.
- * @return {true} if the item was successfully deleted, or {false} if the item was not found.
+ * @return {boolean} true if the item was successfully deleted, or false if the item was not found.
  */
 function deleteObjectById(type, id) {
   if (!realm.objectForPrimaryKey(type, id)) {
@@ -80,7 +80,7 @@ function deleteObjectById(type, id) {
 /**
  * Delete the specified Realm object.
  * @param {object} obj - The Realm object to delete.
- * @return {true} if the item was successfully deleted.
+ * @return {boolean} true if the item was successfully deleted.
  */
 function deleteObject(obj) {
   realm.write(() => {
