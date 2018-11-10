@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     imageUrl() {
-      // eslint-disable-next-line detect-non-literal-require
+      // eslint-disable-next-line security/detect-non-literal-require
       return this.image ? require("../assets/" + this.image) : "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
     }
   },
