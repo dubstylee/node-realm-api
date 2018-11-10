@@ -24,7 +24,7 @@ function loadMenuItems() {
 }
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     MenuItem
   },
@@ -42,7 +42,7 @@ export default {
   created() {
     this.loadMenuItems();
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

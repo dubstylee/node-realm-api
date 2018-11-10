@@ -1,7 +1,7 @@
 # client
 
 ## Project setup
-```
+```bash
 npm install
 ```
 

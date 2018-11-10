@@ -64,6 +64,19 @@ function updateObject(type, obj) {
 }
 
 /**
+ * Delete the specified Realm object.
+ * @param {object} obj - The Realm object to delete.
+ * @return {boolean} true if the item was successfully deleted.
+ */
+function deleteObject(obj) {
+  realm.write(() => {
+    realm.delete(obj);
+  });
+
+  return true;
+}
+
+/**
  * Delete a Realm object of the provided type with the provided primary key.
  * @param {string} type - The type of Realm object to delete.
  * @param {string} id - The primary key of the Realm object to be deleted.
@@ -75,19 +88,6 @@ function deleteObjectById(type, id) {
   }
 
   return deleteObject(realm.objectForPrimaryKey(type, id));
-}
-
-/**
- * Delete the specified Realm object.
- * @param {object} obj - The Realm object to delete.
- * @return {boolean} true if the item was successfully deleted.
- */
-function deleteObject(obj) {
-  realm.write(() => {
-    realm.delete(obj);
-  });
-
-  return true;
 }
 
 module.exports = {
