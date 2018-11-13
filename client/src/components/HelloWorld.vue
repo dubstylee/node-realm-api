@@ -11,10 +11,19 @@
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
     </ul>
-    <form id="inputForm">
-      <input type="text" name="companyName" id="companyName" />
-      <button v-on:click="performPostRequest" type="submit">Submit</button>
-    </form>
+    <v-btn color="success">Success</v-btn>
+    <v-form id="inputForm">
+      <v-container>
+        <v-layout row wrap>
+          <v-flex xs12 sm6 md3>
+            <v-text-field type="text" name="companyName" id="companyName" />
+          </v-flex>
+          <v-flex xs4 sm2 md1>
+            <v-btn color="info" v-on:click="performPostRequest" type="submit">Submit</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form>
     <div id="postResult">{{this.message}}</div>
     <ul v-if="companies">
       <li v-for="company of companies" :key="company.id">
