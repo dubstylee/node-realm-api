@@ -54,7 +54,7 @@ describe("routes : companies", () => {
         const arr = Object.values(res.body.data);
         arr.length.should.eql(3);
         arr.forEach((item) => {
-          item.should.have.keys("id", "companyName", "notes", "notesSalt", "addresses");
+          item.should.have.keys("id", "companyName", "notes", "notesSalt", "addresses", "contacts");
         });
         done();
       });

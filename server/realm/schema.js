@@ -54,4 +54,8 @@ const ContactSchema = {
   }
 };
 
-module.exports = [ AddressSchema, CompanySchema, ContactSchema ];
+module.exports = [ 
+  AddressSchema,
+  CompanySchema,
+  ContactSchema
+];
