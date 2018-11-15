@@ -34,9 +34,24 @@ const CompanySchema = {
     // logoBase64: "string?", // store path to image file instead
     notes: "string?",         // encrypt this field
     notesSalt: "string?",     // used for encryption
-    //contacts: "Contact[]",
+    contacts: "Contact[]",
     addresses: "Address[]"
   }
 };
 
-module.exports = [ AddressSchema, CompanySchema ];
+const ContactSchema = {
+  name: "Contact",
+  primaryKey: "id",
+  properties: {
+    id: { type: "string" },
+    emailAddress: "string",
+    hours: "string",
+    contactName: "string",
+    notes: "string",
+    phoneNumber: "string",
+    faxNumber: "string",
+    // formatted: contact info
+  }
+};
+
+module.exports = [ AddressSchema, CompanySchema, ContactSchema ];
