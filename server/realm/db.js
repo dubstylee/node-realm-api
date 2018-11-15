@@ -1,5 +1,5 @@
 const uuid = require("uuid/v4");
-const realm = require("./index")[process.env.NODE_ENV];
+const realm = require("./index"); //[process.env.NODE_ENV];
 
 /**
  * Returns all objects of the given {type} in the Realm database.

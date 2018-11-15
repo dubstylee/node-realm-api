@@ -76,8 +76,7 @@ typings/
 .fusebox/
 
 # Realm database
-default.realm*
-test.realm*
+*.realm*
 
 # JSDoc output
 output

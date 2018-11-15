@@ -9,6 +9,22 @@ const Realm = require("realm");
 // data properties map to ArrayBuffer
 // date properties map to Date
 
+const AddressSchema = {
+  name: "Address",
+  primaryKey: "id",
+  properties: {
+    id: { type: "string" },
+    addressName: "string",
+    street1: "string",
+    street2: "string",
+    city: "string",
+    state: "string",
+    zip: "string",
+    notes: "string"
+    // formatted: address info
+  }
+};
+
 const CompanySchema = {
   name: "Company",
   primaryKey: "id",
@@ -17,10 +33,10 @@ const CompanySchema = {
     companyName: "string",
     // logoBase64: "string?", // store path to image file instead
     notes: "string?",         // encrypt this field
-    notesSalt: "string?"      // used for encryption
+    notesSalt: "string?",     // used for encryption
     //contacts: "Contact[]",
-    //addresses: "Address[]"
+    addresses: "Address[]"
   }
 };
 
-module.exports = [ CompanySchema ];
+module.exports = [ AddressSchema, CompanySchema ];

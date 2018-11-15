@@ -1,6 +1,6 @@
 <template>
   <a :href="link">
-    {{ title }}<br/>
+    <span class="font-weight-black">{{ title }}</span><br/>
     <img width="120" alt="Vue logo" :src="imageUrl">
   </a>
 </template>

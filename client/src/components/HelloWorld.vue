@@ -11,16 +11,13 @@
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
     </ul>
-    <v-btn color="success">Success</v-btn>
-    <v-form id="inputForm">
+    <v-form id="inputForm" class="text-xs-center">
       <v-container>
-        <v-layout row wrap>
+        <v-layout row wrap justify-center>
           <v-flex xs12 sm6 md3>
-            <v-text-field type="text" name="companyName" id="companyName" />
+            <v-text-field type="text" name="companyName" id="companyName" v-model="companyName" />
           </v-flex>
-          <v-flex xs4 sm2 md1>
-            <v-btn color="info" v-on:click="performPostRequest" type="submit">Submit</v-btn>
-          </v-flex>
+          <v-btn color="info" v-on:click="performPostRequest" type="submit">Submit</v-btn>
         </v-layout>
       </v-container>
     </v-form>
@@ -65,32 +62,35 @@ function loadCompanies() {
 
 function performPostRequest(e) {
   var resultElement = document.getElementById("postResult");
-  var name = document.getElementById("companyName").value; 
-  
-  axios.post("/api/v1/companies", {
-    companyName: name
-  })
-  .then(response => {
-    resultElement.className = "show";
-    this.message = response.data.status;
-    var company = response.data.data;
-    var index = this.companies.findIndex(c => c.companyName > company.companyName);
+//  var name = document.getElementById("companyName").value; 
+  var name = this.companyName;
 
-    // if no index found, add at end of array
-    if (index === -1) {
-      index = this.companies.length;
-    }
-    this.companies.splice(index, 0, company);
+  if (name !== "") {
+    axios.post("/api/v1/companies", {
+      companyName: name
+    })
+    .then(response => {
+      resultElement.className = "show";
+      this.message = response.data.status;
+      var company = response.data.data;
+      var index = this.companies.findIndex(c => c.companyName > company.companyName);
 
-    setTimeout(() => {
-      resultElement.className = "";
-      this.message = "";
-    }, 3000);
-  })
-  .catch(error => {
-    this.message = error;
-  });
-  
+      // if no index found, add at end of array
+      if (index === -1) {
+        index = this.companies.length;
+      }
+      this.companies.splice(index, 0, company);
+      this.companyName = "";
+
+      setTimeout(() => {
+        resultElement.className = "";
+        this.message = "";
+      }, 3000);
+    })
+    .catch(error => {
+      this.message = error;
+    });
+  }
   e.preventDefault();
 }
 
@@ -99,6 +99,7 @@ export default {
   data() {
     return { 
       companies: [],
+      companyName: "",
       message: ""
     };
   },

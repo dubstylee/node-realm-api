@@ -16,10 +16,11 @@ const MenuItem = require("./MenuItem").default;
 
 function loadMenuItems() {
   this.menuItems = [
-    { title: "Companies", link: "", image: "logo.png" },
-    { title: "Accounts", link: "", image: "logo.png" },
-    { title: "Payments", link: "", image: "" },
-    { title: "Checkbook", link: "", image: "" },
+    { title: "Companies", link: "/Companies", image: "logo.png" },
+    { title: "Accounts", link: "/Accounts", image: "logo.png" },
+    { title: "Invoices", link: "/Invoices", image: "" },
+    { title: "Payments", link: "/Payments", image: "" },
+    { title: "Checkbook", link: "/Checkbook", image: "" },
   ];
 }
 
@@ -69,6 +70,11 @@ a {
   height: 150px;
   width: 150px;
   margin: 10px;
+  border-radius: 5px;
+}
+
+.menuItem:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 </style>

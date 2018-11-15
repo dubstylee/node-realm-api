@@ -6,7 +6,7 @@ const chaiHttp = require("chai-http");
 chai.use(chaiHttp);
 
 const server = require("../server/index");
-const realm = require("../server/realm/index")[process.env.NODE_ENV];
+const realm = require("../server/realm/index"); //[process.env.NODE_ENV];
 
 describe("routes : companies", () => {
 
@@ -54,7 +54,7 @@ describe("routes : companies", () => {
         const arr = Object.values(res.body.data);
         arr.length.should.eql(3);
         arr.forEach((item) => {
-          item.should.have.keys("id", "companyName", "notes", "notesSalt");
+          item.should.have.keys("id", "companyName", "notes", "notesSalt", "addresses");
         });
         done();
       });
