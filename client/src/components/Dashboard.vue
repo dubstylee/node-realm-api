@@ -16,7 +16,7 @@ const MenuItem = require("./MenuItem").default;
 
 function loadMenuItems() {
   this.menuItems = [
-    { title: "Companies", link: "/Companies", image: "logo.png" },
+    { title: "Companies", link: "/companies", image: "logo.png" },
     { title: "Accounts", link: "/Accounts", image: "logo.png" },
     { title: "Invoices", link: "/Invoices", image: "" },
     { title: "Payments", link: "/Payments", image: "" },
@@ -51,14 +51,14 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
-ul {
+/*ul {
   list-style-type: none;
   padding: 0;
 }
 li {
   display: inline-block;
   margin: 0 10px;
-}
+}*/
 a {
   color: #42b983;
 }

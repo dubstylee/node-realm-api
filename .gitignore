@@ -80,3 +80,6 @@ typings/
 
 # JSDoc output
 output
+
+# config
+dev.js

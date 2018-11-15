@@ -1,8 +1,8 @@
 <template>
-  <a :href="link">
+  <router-link :to="link">
     <span class="font-weight-black">{{ title }}</span><br/>
     <img width="120" alt="Vue logo" :src="imageUrl">
-  </a>
+  </router-link>
 </template>
 
 <script>

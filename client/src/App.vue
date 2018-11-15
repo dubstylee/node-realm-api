@@ -1,20 +1,13 @@
 <template>
   <v-app id="app">
-    <Dashboard title="Realm API" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <img src="./assets/logo.png">
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard.vue";
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
   name: "app",
-  components: {
-    Dashboard,
-    HelloWorld
-  },
   created() {
     document.title = "Realm API";
   }
