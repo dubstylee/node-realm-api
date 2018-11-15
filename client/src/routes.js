@@ -2,6 +2,7 @@ import Router from "vue-router";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Companies from "./components/Companies";
+import ResetPassword from "./components/ResetPassword";
 import * as firebase from "firebase/app";
 
 const router = new Router({
@@ -27,6 +28,10 @@ const router = new Router({
     {
       path: "/login",
       component: Login
+    },
+    {
+      path: "/reset",
+      component: ResetPassword
     }
   ]
 });

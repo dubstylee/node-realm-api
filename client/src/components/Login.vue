@@ -10,6 +10,7 @@
       <v-layout row wrap justify-center>
         <v-flex xs12 sm6>
           <v-text-field v-model="password" :type="'password'"></v-text-field>
+          <router-link to="/reset">Forgot Password</router-link>
         </v-flex>
       </v-layout>
       <v-btn color="info" type="submit" @click="login">Login</v-btn>
@@ -31,14 +32,24 @@ export default {
   },
   methods: {
     login(event) {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        () => { // (user)
-          this.$router.replace("/");
-        },
-        (err) => {
-          alert("Ooops " + err.message);
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then((res) => {
+        const user = res.user;
+        if (!user.emailVerified) {
+          user.sendEmailVerification()
+          .then(() => {
+            // sent
+            })
+          .catch((err) => {
+            // error
+          });
         }
-      );
+        this.$router.replace("/");
+      })
+      .catch((err) => {
+        alert("Ooops " + err.message);
+      });
+
       event.preventDefault();
     }
   }
