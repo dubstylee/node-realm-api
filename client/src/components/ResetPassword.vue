@@ -26,7 +26,7 @@ export default {
   methods: {
     reset(event) {
       firebase.auth().sendPasswordResetEmail(this.email)
-      .then((res) => {
+      .then(() => { // (res)
         this.$router.replace("/login");
       })
       .catch((err) => {

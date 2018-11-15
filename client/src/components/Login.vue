@@ -41,7 +41,7 @@ export default {
             // sent
             })
           .catch((err) => {
-            // error
+            alert(err.message);
           });
         }
         this.$router.replace("/");
