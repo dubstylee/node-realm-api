@@ -53,7 +53,7 @@ export default {
       event.preventDefault();
     }
   }
-}
+};
 </script>
 
 <style scoped>
