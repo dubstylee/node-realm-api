@@ -1,17 +1,22 @@
 <template>
   <v-app id="app">
     <div>
-      <a href="/"><img src="./assets/logo.png"></a>
-      <router-view></router-view>
+      <app-header />
+      <router-view />
     </div>
   </v-app>
 </template>
 
 <script>
+import Header from "./components/Header";
+
 export default {
   name: "app",
   created() {
     document.title = "Realm API";
+  },
+  components: {
+    "app-header": Header
   }
 };
 </script>

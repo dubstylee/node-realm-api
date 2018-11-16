@@ -43,13 +43,11 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
-    <v-btn @click="logout">Logout</v-btn>
   </div>
 </template>
 
 <script>
 const axios = require("axios");
-import * as firebase from "firebase/app";
 
 function loadCompanies() {
   axios
@@ -60,13 +58,6 @@ function loadCompanies() {
     .catch(error => {
       this.message = error;
     });
-}
-
-function logout(event) {
-  firebase.auth().signOut().then(() => {
-    this.$router.replace("login");
-  });
-  event.preventDefault();
 }
 
 function performPostRequest(e) {
@@ -117,8 +108,7 @@ export default {
   },
   methods: {
     loadCompanies,
-    performPostRequest,
-    logout
+    performPostRequest
   },
   created() {
     this.loadCompanies();
