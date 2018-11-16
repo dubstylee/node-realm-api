@@ -1,8 +1,8 @@
 <template>
   <div>
     <a href="/"><img src="../assets/logo.png"></a>
-    <template v-if="user">
-      <v-btn @click="logout">Logout</v-btn>
+    <template v-if="Object.keys(user).length > 0">
+      <br><v-btn @click="logout">Logout</v-btn>
     </template>
   </div>
 </template>
@@ -12,17 +12,18 @@ import * as firebase from "firebase/app";
 
 function logout() {
   firebase.auth().signOut().then(() => {
-    this.user = null;
     this.$router.replace("login");
+    this.$emit("loggedOut");
   });
 }
 
 export default {
   name: "Header",
   data() {
-    return {
-      user: firebase.auth().currentUser
-    };
+    return { };
+  },
+  props: {
+    user: Object
   },
   methods: {
     logout
