@@ -4,7 +4,7 @@
     <v-form>
       <v-layout row wrap justify-center>
         <v-flex xs12 sm6>
-          <v-text-field v-model="email" :rules="[rules.email]" ref="email" />
+          <v-text-field v-model="email" type="email" ref="email" />
         </v-flex>
       </v-layout>
       <v-btn color="info" type="submit" @click="reset">Reset Password</v-btn>
@@ -22,11 +22,7 @@ export default {
     return {
       email: "",
       rules: {
-        required: value => !!value || "Required.",
-        email: value => {
-          const pattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-          return pattern.test(value) || "Invalid e-mail.";
-        }
+        required: value => !!value || "Required."
       }
     };
   },
