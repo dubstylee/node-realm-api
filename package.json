@@ -23,7 +23,7 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "realm": "^2.28.1",
+    "realm": "^2.27.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
