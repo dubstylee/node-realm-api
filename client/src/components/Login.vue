@@ -4,12 +4,12 @@
     <v-form>
       <v-layout row wrap justify-center>
         <v-flex xs12 sm6>
-          <v-text-field v-model="email" :type="'text'"></v-text-field>
+          <v-text-field v-model="email" type="email" id="email" required />
         </v-flex>
       </v-layout>
       <v-layout row wrap justify-center>
         <v-flex xs12 sm6>
-          <v-text-field v-model="password" :type="'password'"></v-text-field>
+          <v-text-field v-model="password" type="password" />
           <router-link to="/reset">Forgot Password</router-link>
         </v-flex>
       </v-layout>
@@ -44,6 +44,7 @@ export default {
             alert(err.message);
           });
         }
+        this.$emit("loggedIn", user);
         this.$router.replace("/");
       })
       .catch((err) => {
@@ -51,6 +52,11 @@ export default {
       });
 
       event.preventDefault();
+    }
+  },
+  created() {
+    if (firebase.auth().currentUser) {
+      this.$router.replace("/");
     }
   }
 };

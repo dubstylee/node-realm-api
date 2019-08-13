@@ -28,13 +28,21 @@ export default {
   },
   methods: {
     reset(event) {
-      firebase.auth().sendPasswordResetEmail(this.email)
-      .then(() => { // (res)
-        this.$router.replace("/login");
-      })
-      .catch((err) => {
-        alert("Ooops " + err.message);
+      firebase.auth().createUserWithEmailAndPassword(this.email, "somepass")
+      .then(() => {
+        firebase.auth().sendPasswordResetEmail(this.email)
+        .then(() => {
+          this.$router.replace("/login");
+        });
       });
+
+//      firebase.auth().sendPasswordResetEmail(this.email)
+//      .then(() => { // (res)
+//        this.$router.replace("/login");
+//      })
+//      .catch((err) => {
+//        alert("Ooops " + err.message);
+//      });
 
       event.preventDefault();
     }
