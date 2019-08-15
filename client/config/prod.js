@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   apiKey: "",
   authDomain: "",
   databaseURL: "",
